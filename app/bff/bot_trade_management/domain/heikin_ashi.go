@@ -5,6 +5,8 @@ import (
 )
 
 type HeikinAshiDomain struct {
+	Candle0      *CandleDomain
+	Candle1      *CandleDomain
 	Open         string
 	Close        string
 	BotID        string
@@ -57,4 +59,20 @@ func (h *HeikinAshiDomain) ToTradeDomain() *Trade {
 	// t.TemplateID = h.TemplateID
 	// t.TradeType = h.TradeType
 	return t
+}
+
+func (h *HeikinAshiDomain) OpenLongPosition() bool {
+	return h.Candle0.IsGreenCandle() && h.Candle1.IsRedCandle()
+}
+
+func (h *HeikinAshiDomain) CloseLongPosition() bool {
+	return h.Candle0.IsRedCandle() && h.Candle1.IsGreenCandle()
+}
+
+func (h *HeikinAshiDomain) OpenShortPosition() bool {
+	return h.Candle0.IsRedCandle() && h.Candle1.IsGreenCandle()
+}
+
+func (h *HeikinAshiDomain) CloseShortPosition() bool {
+	return h.Candle0.IsGreenCandle() && h.Candle1.IsRedCandle()
 }

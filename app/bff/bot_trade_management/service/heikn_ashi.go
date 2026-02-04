@@ -9,7 +9,7 @@ import (
 func (s *botContinuingBarService) ByHiekinAshiCandle(ctx context.Context, request *domain.HeikinAshiDomain) error {
 	tradeRequest := request.ToTradeDomain()
 	if tradeRequest.IsLongPosition() {
-		if request.IsGrrenCandle() { // green candle close >= open
+		if request.OpenLongPosition() { // green candle close >= open
 			botOpening, err := s.botOpeningService.Get(ctx, request)
 			if err != nil {
 				return err
@@ -25,7 +25,7 @@ func (s *botContinuingBarService) ByHiekinAshiCandle(ctx context.Context, reques
 			if err != nil {
 				return err
 			}
-		} else { // red candle close < open, do sell long position
+		} else if request.CloseLongPosition() { // red candle close < open, do sell long position
 			botOpening, err := s.botOpeningService.Get(ctx, request)
 			if err != nil {
 				return err
@@ -43,7 +43,7 @@ func (s *botContinuingBarService) ByHiekinAshiCandle(ctx context.Context, reques
 			}
 		}
 	} else {
-		if request.IsRedCandle() { // red candle close < open, for short is to buy
+		if request.OpenShortPosition() { // red candle close < open, for short is to buy
 			botOpening, err := s.botOpeningService.Get(ctx, request)
 			if err != nil {
 				return err
@@ -58,7 +58,7 @@ func (s *botContinuingBarService) ByHiekinAshiCandle(ctx context.Context, reques
 			if err != nil {
 				return err
 			}
-		} else { // green candle close >= open, do sell short position
+		} else if request.CloseShortPosition() { // green candle close >= open, do sell short position
 			botOpening, err := s.botOpeningService.Get(ctx, request)
 			if err != nil {
 				return err
