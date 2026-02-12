@@ -24,12 +24,14 @@ func (h *heikinashiHandler) Handler(c *gin.Context) {
 	if err != nil {
 		response := appresponse.NewAppResponse(appresponse.InvalidRequestErrorCode, err.Error(), nil)
 		response.SendGinResponse(http.StatusBadRequest, c)
+		return
 	}
 
 	err = h.botContinuingBarService.ByHiekinAshiCandle(ctx, req.ToDomain())
 	if err != nil {
 		response := appresponse.NewAppResponse(appresponse.FailCode, err.Error(), nil)
 		response.SendGinResponse(http.StatusInternalServerError, c)
+		return
 	}
 	response := appresponse.NewAppResponse(appresponse.SuccessCode, appresponse.SuccessMsg, nil)
 	response.SendGinResponse(http.StatusOK, c)

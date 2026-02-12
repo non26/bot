@@ -34,6 +34,10 @@ func (h *Trade) IsShortPosition() bool {
 	return strings.ToUpper(h.PositionSide) == bnconstant.SHORT
 }
 
+func (h *Trade) IsBothPosition() bool {
+	return strings.ToUpper(h.PositionSide) == bnconstant.BOTHPOSITIONSIDE
+}
+
 func (h *Trade) SetBuySide() error {
 	if h.IsLongPosition() {
 		h.Side = bnconstant.BUY

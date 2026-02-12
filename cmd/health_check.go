@@ -4,10 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	healthcheckpkg "github.com/non26/tradepkg/pkg/bn/health_check"
 )
 
 func HealthCheck(app *gin.Engine, msgs string) {
-	app.GET("/health-check", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": msgs})
+	app.GET(healthcheckpkg.PATH_HEALTHCHECK, func(c *gin.Context) {
+		c.JSON(http.StatusOK, healthcheckpkg.NewHealthCheckResponseWith(msgs))
 	})
 }

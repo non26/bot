@@ -2,6 +2,7 @@ package main
 
 import (
 	"bot/app/bff/bot_trade_management/route"
+	"bot/cmd"
 	"bot/config"
 	"fmt"
 	"log"
@@ -15,7 +16,7 @@ func main() {
 		log.Fatalf("failed to load config: %v", err)
 	}
 	router := gin.Default()
-
+	cmd.HealthCheck(router, config.HealthCheckMsg)
 	route.Route(router, config)
 	router.Run(fmt.Sprintf(":%d", config.Port))
 }

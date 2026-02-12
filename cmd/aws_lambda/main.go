@@ -13,7 +13,7 @@ import (
 	"bot/app/bff/bot_trade_management/route"
 )
 
-var echoLambda *ginadapter.GinLambda
+var ginLambda *ginadapter.GinLambda
 var _config *config.Config
 
 func init() {
@@ -42,11 +42,11 @@ func init() {
 	route.Route(app_gin, _config)
 	cmd.UpdateConfig(app_gin, _config)
 
-	echoLambda = ginadapter.New(app_gin)
+	ginLambda = ginadapter.New(app_gin)
 }
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	return echoLambda.ProxyWithContext(ctx, req)
+	return ginLambda.ProxyWithContext(ctx, req)
 }
 
 func main() {

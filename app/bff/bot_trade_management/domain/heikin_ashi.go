@@ -62,17 +62,17 @@ func (h *HeikinAshiDomain) ToTradeDomain() *Trade {
 }
 
 func (h *HeikinAshiDomain) OpenLongPosition() bool {
-	return h.Candle0.IsGreenCandle() && h.Candle1.IsRedCandle()
+	return h.Candle1.IsRedCandle() && h.Candle0.IsGreenCandle()
 }
 
 func (h *HeikinAshiDomain) CloseLongPosition() bool {
-	return h.Candle0.IsRedCandle() && h.Candle1.IsGreenCandle()
+	return h.Candle1.IsGreenCandle() && h.Candle0.IsRedCandle()
 }
 
 func (h *HeikinAshiDomain) OpenShortPosition() bool {
-	return h.Candle0.IsRedCandle() && h.Candle1.IsGreenCandle()
+	return h.Candle1.IsGreenCandle() && h.Candle0.IsRedCandle()
 }
 
 func (h *HeikinAshiDomain) CloseShortPosition() bool {
-	return h.Candle0.IsGreenCandle() && h.Candle1.IsRedCandle()
+	return h.Candle1.IsRedCandle() && h.Candle0.IsGreenCandle()
 }
