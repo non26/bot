@@ -3,19 +3,19 @@ package req
 import "bot/app/bff/bot_trade_management/domain"
 
 type HeikinAshiRequest struct {
-	Candle0      *CandleRequest `json:"candle0"` // a first complete candle that stay on the right most of the chart
-	Candle1      *CandleRequest `json:"candle1"` // a second complete candle that stay on the right most of the chart
-	Open         string         `json:"open"`
-	Close        string         `json:"close"`
-	BotID        string         `json:"bot_id"`
-	ClientID     string         `json:"client_id"`
-	Symbol       string         `json:"symbol"`
-	PositionSide string         `json:"position_side"`
+	Candle0 *CandleRequest `json:"candle0"` // a first complete candle that stay on the right most of the chart
+	Candle1 *CandleRequest `json:"candle1"` // a second complete candle that stay on the right most of the chart
+	// Open         string         `json:"open"`
+	// Close        string         `json:"close"`
+	BotID        string `json:"bot_id"`
+	ClientID     string `json:"client_id"`
+	Symbol       string `json:"symbol"`
+	PositionSide string `json:"position_side"`
 	// Side         string `json:"side"`
-	AmountBase     string             `json:"amount_b"`
-	AccountID      string             `json:"account_id"`
-	AmountBaseBoth *AmountBaseForBoth `json:"amount_base_both,omitempty"`
-	ClientIDBoth   *ClientIDForBoth   `json:"client_id_both,omitempty"`
+	AmountBase string `json:"amount_b"`
+	AccountID  string `json:"account_id"`
+	// AmountBaseBoth *AmountBaseForBoth `json:"amount_base_both,omitempty"`
+	// ClientIDBoth   *ClientIDForBoth   `json:"client_id_both,omitempty"`
 }
 
 type AmountBaseForBoth struct {
