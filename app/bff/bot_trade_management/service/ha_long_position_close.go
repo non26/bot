@@ -6,8 +6,8 @@ import (
 	"errors"
 )
 
-func (s *botContinuingBarService) closeLongPosition(ctx context.Context, request *domain.HeikinAshiDomain, tradeRequest *domain.Trade) error {
-	botOpening, err := s.botOpeningService.Get(ctx, request)
+func (s *botContinuinHeikinAshiBarService) closeLongPosition(ctx context.Context, request *domain.HeikinAshiDomain, tradeRequest *domain.Trade) error {
+	botOpening, err := s.botOpeningService.Get(ctx, request.ToBotDomain())
 	if err != nil {
 		return err
 	}

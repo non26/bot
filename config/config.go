@@ -3,12 +3,12 @@ package config
 import "github.com/spf13/viper"
 
 type Config struct {
-	Port           int       `yaml:"port" json:"port"`
-	Environment    string    `yaml:"environment" json:"environment"`
-	HealthCheckMsg string    `yaml:"healthCheckMsg" json:"healthCheckMsg"`
-	BNBotBFF       BNBotBFF  `yaml:"bnBotBff" json:"bnBotBff"`
-	BNBotCore      BNBotCore `yaml:"bnBotCore" json:"bnBotCore"`
-	DynamoDB       DynamoDB  `yaml:"dynamodb" json:"dynamodb"`
+	Port           int      `yaml:"port" json:"port"`
+	Environment    string   `yaml:"environment" json:"environment"`
+	HealthCheckMsg string   `yaml:"healthCheckMsg" json:"healthCheckMsg"`
+	BNBotBFF       BNBotBFF `yaml:"bnBotBff" json:"bnBotBff"`
+	// BNBotCore      BNBotCore `yaml:"bnBotCore" json:"bnBotCore"`
+	DynamoDB DynamoDB `yaml:"dynamodb" json:"dynamodb"`
 }
 
 func NewConfig() *Config {
@@ -28,6 +28,7 @@ type DynamoDB struct {
 
 type BNBotBFF struct {
 	BotTradeManagement BNBotBFFBotTradeManagement `yaml:"botTradeManagement" json:"botTradeManagement"`
+	BotManagement      BNBotBFFBotManagement      `yaml:"botManagement" json:"botManagement"`
 }
 
 type BNBotBFFBotTradeManagement struct {
@@ -35,15 +36,21 @@ type BNBotBFFBotTradeManagement struct {
 	NewOrderEndpoint string `yaml:"newOrderEndpoint" json:"newOrderEndpoint"`
 }
 
-type BNBotCore struct {
-	BotOpening BNBotCoreBotOpening `yaml:"botOpening" json:"botOpening"`
+type BNBotBFFBotManagement struct {
+	BaseURL        string `yaml:"baseurl" json:"baseurl"`
+	GetEndpoint    string `yaml:"endpoint" json:"endpoint"`
+	UpdateEndpoint string `yaml:"updateEndpoint" json:"updateEndpoint"`
 }
 
-type BNBotCoreBotOpening struct {
-	BaseURL        string `yaml:"baseurl" json:"baseurl"`
-	GetEndpoint    string `yaml:"getEndpoint" json:"getEndpoint"`
-	GetAllEndpoint string `yaml:"getAllEndpoint" json:"getAllEndpoint"`
-}
+// type BNBotCore struct {
+// 	BotOpening BNBotCoreBotOpening `yaml:"botOpening" json:"botOpening"`
+// }
+
+// type BNBotCoreBotOpening struct {
+// 	BaseURL        string `yaml:"baseurl" json:"baseurl"`
+// 	GetEndpoint    string `yaml:"getEndpoint" json:"getEndpoint"`
+// 	GetAllEndpoint string `yaml:"getAllEndpoint" json:"getAllEndpoint"`
+// }
 
 func LoadConfig() (*Config, error) {
 	config := NewConfig()

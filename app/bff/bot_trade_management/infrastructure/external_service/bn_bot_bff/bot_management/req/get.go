@@ -10,6 +10,6 @@ func NewGetBotOpeningRequest() *GetBotOpeningRequest {
 	return &GetBotOpeningRequest{}
 }
 
-func (g *GetBotOpeningRequest) FromDomain(domain *domain.HeikinAshiDomain) {
+func (g *GetBotOpeningRequest) FromDomain(domain *domain.BotDomain) {
 	g.BotID = domain.BotID
 }

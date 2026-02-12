@@ -2,8 +2,8 @@ package route
 
 import (
 	"bot/app/bff/bot_trade_management/handler"
+	externalbotmanagementservice "bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_bff/bot_management"
 	externaltradeservice "bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_bff/trade"
-	externalbotopeningservice "bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_core/bot_opening"
 	"bot/app/bff/bot_trade_management/service"
 	"bot/config"
 
@@ -15,11 +15,12 @@ func Route(router *gin.Engine, config *config.Config) {
 		config.BNBotBFF.BotTradeManagement.BaseURL,
 		config.BNBotBFF.BotTradeManagement.NewOrderEndpoint,
 	)
-	botOpeningService := externalbotopeningservice.NewBotOpeningService(
-		config.BNBotCore.BotOpening.BaseURL,
-		config.BNBotCore.BotOpening.GetEndpoint,
+	botOpeningService := externalbotmanagementservice.NewBotOpeningService(
+		config.BNBotBFF.BotManagement.BaseURL,
+		config.BNBotBFF.BotManagement.GetEndpoint,
+		config.BNBotBFF.BotManagement.UpdateEndpoint,
 	)
-	botContinuingBarService := service.NewBotContinuingBarService(
+	botContinuingBarService := service.NewBotContinuingHeikinAshiBarService(
 		botTradeManagementService,
 		botOpeningService,
 	)

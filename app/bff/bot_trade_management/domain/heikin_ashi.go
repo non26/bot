@@ -13,9 +13,9 @@ type HeikinAshiDomain struct {
 	ClientID     string
 	Symbol       string
 	PositionSide string
-	Side         string
-	AmountBase   string
-	AccountID    string
+	// Side         string
+	AmountBase string
+	AccountID  string
 	// TemplateID   string
 }
 
@@ -51,7 +51,7 @@ func (h *HeikinAshiDomain) ToTradeDomain() *Trade {
 	t.AccountID = h.AccountID
 	t.Symbol = h.Symbol
 	t.PositionSide = h.PositionSide
-	t.Side = h.Side
+	// t.Side = h.Side
 	t.Quantity = h.AmountBase
 	t.ClientID = h.ClientID
 	t.BnClientID = t.CreateBnClientID(h.ClientID)
@@ -75,4 +75,11 @@ func (h *HeikinAshiDomain) OpenShortPosition() bool {
 
 func (h *HeikinAshiDomain) CloseShortPosition() bool {
 	return h.Candle1.IsRedCandle() && h.Candle0.IsGreenCandle()
+}
+
+func (h *HeikinAshiDomain) ToBotDomain() *BotDomain {
+	return &BotDomain{
+		BotID:    h.BotID,
+		ClientID: h.ClientID,
+	}
 }

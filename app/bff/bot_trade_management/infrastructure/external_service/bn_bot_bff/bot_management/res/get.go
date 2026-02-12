@@ -9,10 +9,11 @@ type GetResponse struct {
 }
 
 type GetResponseData struct {
-	BotId      string `json:"bot_id"`
-	TemplateId string `json:"template_id"`
-	ClientId   string `json:"client_id"`
-	BnClientId string `json:"bn_client_id"`
+	BotId       string `json:"bot_id"`
+	TemplateId  string `json:"template_id"`
+	ClientId    string `json:"client_id"`
+	BnClientId  string `json:"bn_client_id"`
+	Restriction string `json:"restriction"`
 }
 
 func NewGetResponse() *GetResponse {
@@ -24,9 +25,10 @@ func (g *GetResponseData) ToDomain() *domain.BotDomain {
 		return nil
 	}
 	return &domain.BotDomain{
-		BotID:      g.BotId,
-		TemplateID: g.TemplateId,
-		ClientID:   g.ClientId,
-		BnClientId: g.BnClientId,
+		BotID:       g.BotId,
+		TemplateID:  g.TemplateId,
+		ClientID:    g.ClientId,
+		BnClientId:  g.BnClientId,
+		Restriction: g.Restriction,
 	}
 }

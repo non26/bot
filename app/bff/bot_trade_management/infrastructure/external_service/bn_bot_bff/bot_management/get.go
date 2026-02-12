@@ -2,8 +2,8 @@ package externalservice
 
 import (
 	"bot/app/bff/bot_trade_management/domain"
-	"bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_core/bot_opening/req"
-	"bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_core/bot_opening/res"
+	"bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_bff/bot_management/req"
+	"bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_bff/bot_management/res"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -11,7 +11,7 @@ import (
 	"net/http"
 )
 
-func (b *botOpeningService) Get(ctx context.Context, domain *domain.HeikinAshiDomain) (*domain.BotDomain, error) {
+func (b *botOpeningService) Get(ctx context.Context, domain *domain.BotDomain) (*domain.BotDomain, error) {
 	req := req.NewGetBotOpeningRequest()
 	req.FromDomain(domain)
 

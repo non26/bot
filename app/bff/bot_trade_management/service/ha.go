@@ -5,7 +5,7 @@ import (
 	"context"
 )
 
-func (s *botContinuingBarService) ByHiekinAshiCandle(ctx context.Context, request *domain.HeikinAshiDomain) error {
+func (s *botContinuinHeikinAshiBarService) ByHiekinAshiCandle(ctx context.Context, request *domain.HeikinAshiDomain) error {
 	tradeRequest := request.ToTradeDomain()
 	if tradeRequest.IsLongPosition() {
 		if request.OpenLongPosition() { // green candle close >= open
