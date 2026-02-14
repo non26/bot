@@ -21,7 +21,6 @@ func NewNewOrderRequest() *NewOrderRequest {
 }
 
 func (n *NewOrderRequest) ToDomain(d *domain.Trade) {
-	n.TemplateId = d.AccountID
 	n.ExchangeId = d.ExchangeID
 	n.BotId = d.BotId
 	n.TradeType = d.TradeType

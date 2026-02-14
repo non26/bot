@@ -8,6 +8,9 @@ type CandleRestrictionRequest struct {
 }
 
 func (c *CandleRestrictionRequest) ToDomain() *domain.CandleStickRestriction {
+	if c == nil {
+		return domain.NewEmptyCandleStickRestriction()
+	}
 	return &domain.CandleStickRestriction{
 		MaxConsecutiveBar:  c.MaxConsecutiveBar,
 		CurrentNumberOfBar: c.CurrentNumberOfBar,

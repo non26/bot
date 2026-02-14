@@ -9,6 +9,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	appresponse "github.com/non26/tradepkg/pkg/bn/app_response"
 )
 
 func (b *botOpeningService) Get(ctx context.Context, domain *domain.BotDomain) (*domain.BotDomain, error) {
@@ -32,11 +34,6 @@ func (b *botOpeningService) Get(ctx context.Context, domain *domain.BotDomain) (
 		return nil, err
 	}
 	defer response.Body.Close()
-
-	if response.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("failed to get bot opening: %s", response.Status)
-	}
-
 	// body, err := io.ReadAll(response.Body)
 	// if err != nil {
 	// 	return nil, err
@@ -47,6 +44,10 @@ func (b *botOpeningService) Get(ctx context.Context, domain *domain.BotDomain) (
 	err = json.NewDecoder(response.Body).Decode(&responseBody)
 	if err != nil {
 		return nil, err
+	}
+
+	if responseBody.Code == appresponse.BOTNOTFOUNDCODE && response.StatusCode == http.StatusOK {
+		return nil, nil
 	}
 
 	return responseBody.Data.ToDomain(), nil

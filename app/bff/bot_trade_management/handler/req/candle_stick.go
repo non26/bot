@@ -16,7 +16,7 @@ type CandleStickRequest struct {
 }
 
 func (c *CandleStickRequest) ToDomain() *domain.CandleStickDomain {
-	return &domain.CandleStickDomain{
+	d := &domain.CandleStickDomain{
 		Candle0:                c.Candle0.ToDomain(),
 		Candle1:                c.Candle1.ToDomain(),
 		BotID:                  c.BotID,
@@ -27,4 +27,5 @@ func (c *CandleStickRequest) ToDomain() *domain.CandleStickDomain {
 		AccountID:              c.AccountID,
 		NumberOfBarRestriction: c.NumberOfBarRestriction.ToDomain(),
 	}
+	return d
 }

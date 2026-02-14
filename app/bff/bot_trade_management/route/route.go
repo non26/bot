@@ -25,8 +25,16 @@ func Route(router *gin.Engine, config *config.Config) {
 		botOpeningService,
 	)
 
+	botContinuingCandleStickBarService := service.NewBotContinuingCandleStickBarService(
+		botTradeManagementService,
+		botOpeningService,
+	)
+
 	group := router.Group("/bot-continuing-bar")
 
 	botContinuingBarHandler := handler.NewHeikinAshiHandler(botContinuingBarService)
 	group.POST("/heikin-ashi", botContinuingBarHandler.Handler)
+
+	botContinuingCandleStickBarHandler := handler.NewCandleStickHandler(botContinuingCandleStickBarService)
+	group.POST("/candle-stick", botContinuingCandleStickBarHandler.Handler)
 }

@@ -44,23 +44,24 @@ func (s *botContinuinCandleStickBarService) ByCandleStickCandle(ctx context.Cont
 			}
 
 			tradeRequest.SetSellSide()
+			tradeRequest.BnClientID = openingBotm.BnClientId
 			err = s.tradeService.NewOrder(ctx, tradeRequest)
 			if err != nil {
 				return err
 			}
 			return nil
 		} else if request.IsBothCandleIsGreen() {
-			if request.NumberOfBarRestriction.HasRestriction() {
-				botOpening, err := s.botOpeningService.Get(ctx, request.ToBotDomain())
+			botOpening, err := s.botOpeningService.Get(ctx, request.ToBotDomain())
+			if err != nil {
+				return err
+			}
+			if botOpening != nil {
+				candleStickRestriction := domain.NewEmptyCandleStickRestriction()
+				candleStickRestriction, err := candleStickRestriction.FromStringToJson(botOpening.Restriction)
 				if err != nil {
 					return err
 				}
-				if botOpening != nil {
-					candleStickRestriction := domain.NewEmptyCandleStickRestriction()
-					candleStickRestriction, err := candleStickRestriction.FromStringToJson(botOpening.Restriction)
-					if err != nil {
-						return err
-					}
+				if candleStickRestriction.HasRestriction() {
 					candleStickRestriction.AddCurrentBar()
 					if candleStickRestriction.Continue() {
 						botOpening.Restriction = candleStickRestriction.ToStringOfJson()
@@ -71,15 +72,16 @@ func (s *botContinuinCandleStickBarService) ByCandleStickCandle(ctx context.Cont
 						return nil
 					} else {
 						tradeRequest.SetSellSide()
+						tradeRequest.BnClientID = botOpening.BnClientId
 						err = s.tradeService.NewOrder(ctx, tradeRequest)
 						if err != nil {
 							return err
 						}
 						return nil
 					}
-				} else {
-					return nil
 				}
+			} else {
+				return nil
 			}
 		}
 	} else if tradeRequest.IsShortPosition() {
@@ -118,6 +120,7 @@ func (s *botContinuinCandleStickBarService) ByCandleStickCandle(ctx context.Cont
 			}
 
 			tradeRequest.SetSellSide()
+			tradeRequest.BnClientID = openingBot.BnClientId
 			err = s.tradeService.NewOrder(ctx, tradeRequest)
 			if err != nil {
 				return err
@@ -144,6 +147,7 @@ func (s *botContinuinCandleStickBarService) ByCandleStickCandle(ctx context.Cont
 					}
 				} else {
 					tradeRequest.SetSellSide()
+					tradeRequest.BnClientID = botOpening.BnClientId
 					err = s.tradeService.NewOrder(ctx, tradeRequest)
 					if err != nil {
 						return err
