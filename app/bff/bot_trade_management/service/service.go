@@ -22,6 +22,7 @@ func NewBotContinuingHeikinAshiBarService(
 	return &botContinuinHeikinAshiBarService{tradeService: tradeService, botOpeningService: botOpeningService}
 }
 
+// //////////////////////////////////////////////////////////
 type IBotContinuingCandleStickBarService interface {
 	ByCandleStickCandle(ctx context.Context, request *domain.CandleStickDomain) error
 }
@@ -35,4 +36,21 @@ func NewBotContinuingCandleStickBarService(
 	tradeService externaltradeservice.ITradeService,
 	botOpeningService externalbotmanagementservice.IBotOpeningService) IBotContinuingCandleStickBarService {
 	return &botContinuinCandleStickBarService{tradeService: tradeService, botOpeningService: botOpeningService}
+}
+
+////////////////////////////////////////////////////////////
+
+type ITrailingStopBarService interface {
+	ByTrailingStopBar(ctx context.Context, request *domain.TrailingStopBarDomain) error
+}
+
+type trailingStopBarService struct {
+	tradeService      externaltradeservice.ITradeService
+	botOpeningService externalbotmanagementservice.IBotOpeningService
+}
+
+func NewTrailingStopBarService(
+	tradeService externaltradeservice.ITradeService,
+	botOpeningService externalbotmanagementservice.IBotOpeningService) ITrailingStopBarService {
+	return &trailingStopBarService{tradeService: tradeService, botOpeningService: botOpeningService}
 }

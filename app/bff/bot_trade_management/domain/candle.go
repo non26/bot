@@ -1,5 +1,7 @@
 package domain
 
+import "github.com/shopspring/decimal"
+
 var REDCOLOR = "red"
 var GREENCOLOR = "green"
 
@@ -13,11 +15,15 @@ func NewCandleDomain() *CandleDomain {
 }
 
 func (c *CandleDomain) IsRedCandle() bool {
-	return c.Close < c.Open
+	close, _ := decimal.NewFromString(c.Close)
+	open, _ := decimal.NewFromString(c.Open)
+	return close.LessThan(open)
 }
 
 func (c *CandleDomain) IsGreenCandle() bool {
-	return c.Close > c.Open
+	close, _ := decimal.NewFromString(c.Close)
+	open, _ := decimal.NewFromString(c.Open)
+	return close.GreaterThan(open)
 }
 
 func (c *CandleDomain) CandleColor() string {

@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 
 	appresponse "github.com/non26/tradepkg/pkg/bn/app_response"
@@ -34,14 +35,18 @@ func (b *botOpeningService) Get(ctx context.Context, domain *domain.BotDomain) (
 		return nil, err
 	}
 	defer response.Body.Close()
-	// body, err := io.ReadAll(response.Body)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// fmt.Println(string(body))
+
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("**********************************************************")
+	fmt.Println(url)
+	fmt.Println(string(body))
+	fmt.Println("**********************************************************")
 
 	var responseBody res.GetResponse
-	err = json.NewDecoder(response.Body).Decode(&responseBody)
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(&responseBody)
 	if err != nil {
 		return nil, err
 	}
@@ -51,5 +56,4 @@ func (b *botOpeningService) Get(ctx context.Context, domain *domain.BotDomain) (
 	}
 
 	return responseBody.Data.ToDomain(), nil
-	// return nil, nil
 }

@@ -30,6 +30,11 @@ func Route(router *gin.Engine, config *config.Config) {
 		botOpeningService,
 	)
 
+	trailingStopBarService := service.NewTrailingStopBarService(
+		botTradeManagementService,
+		botOpeningService,
+	)
+
 	group := router.Group("/bot-continuing-bar")
 
 	botContinuingBarHandler := handler.NewHeikinAshiHandler(botContinuingBarService)
@@ -37,4 +42,7 @@ func Route(router *gin.Engine, config *config.Config) {
 
 	botContinuingCandleStickBarHandler := handler.NewCandleStickHandler(botContinuingCandleStickBarService)
 	group.POST("/candle-stick", botContinuingCandleStickBarHandler.Handler)
+
+	trailingStopBarHandler := handler.NewTrailingStopBarHandler(trailingStopBarService)
+	group.POST("/trailing-stop-bar", trailingStopBarHandler.Handler)
 }

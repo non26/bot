@@ -20,6 +20,11 @@ func (t *tradeService) NewOrder(ctx context.Context, _request *domain.Trade) err
 
 	url := fmt.Sprintf("%s%s", t.baseurl, t.newOrderEndPoint)
 
+	fmt.Println("**********************************************************")
+	fmt.Println(url)
+	fmt.Println(string(jsonReq))
+	fmt.Println("**********************************************************")
+
 	request, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(jsonReq))
 	if err != nil {
 		return err

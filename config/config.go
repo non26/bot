@@ -38,7 +38,7 @@ type BNBotBFFBotTradeManagement struct {
 
 type BNBotBFFBotManagement struct {
 	BaseURL        string `yaml:"baseurl" json:"baseurl"`
-	GetEndpoint    string `yaml:"endpoint" json:"endpoint"`
+	GetEndpoint    string `yaml:"getEndpoint" json:"getEndpoint"`
 	UpdateEndpoint string `yaml:"updateEndpoint" json:"updateEndpoint"`
 }
 
