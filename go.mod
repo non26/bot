@@ -2,7 +2,7 @@ module bot
 
 go 1.25.3
 
-replace github.com/non26/tradepkg => ../tradepkg
+// replace github.com/non26/tradepkg => ../tradepkg
 
 require (
 	github.com/aws/aws-lambda-go v1.52.0
@@ -11,7 +11,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.53.6
 	github.com/awslabs/aws-lambda-go-api-proxy v0.16.2
 	github.com/gin-gonic/gin v1.11.0
-	github.com/non26/tradepkg v0.3.2
+	github.com/non26/tradepkg v0.3.3
 	github.com/shopspring/decimal v1.4.0
 	github.com/spf13/viper v1.21.0
 )
