@@ -1,4 +1,4 @@
-package main
+package sqsservice
 
 import (
 	externalbotmanagementservice "bot/app/bff/bot_trade_management/infrastructure/external_service/bn_bot_bff/bot_management"
